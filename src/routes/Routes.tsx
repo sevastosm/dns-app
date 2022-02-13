@@ -43,6 +43,7 @@ export default function AppRoutes() {
           }
         />
       </Route>
+      <Route path="*" element={<>404</>} />
     </Routes>
   );
 }
