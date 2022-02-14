@@ -7,8 +7,15 @@ let user = {
 
 let token: string;
 
-export const getToken = async (creds: any) => {
-  let response = await fetch("https://api.rem4you.com/api/Token", {
+const domain = "https://dns.netshops.gr";
+
+type creds = {
+  username: string;
+  password: string;
+};
+
+export const getToken = async (creds: creds) => {
+  let response = await fetch(`${domain}/api/Token`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json;charset=utf-8",

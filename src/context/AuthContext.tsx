@@ -20,6 +20,7 @@ interface AuthContextType {
 export const AuthContext = React.createContext<AuthContextType>(null!);
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = React.useState<any>(null);
+  const token = localStorage.getItem("AppToken");
 
   const signin = (
     username: string,
@@ -27,7 +28,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     callback: VoidFunction
   ) => {
     return fakeAuthProvider.signin(() => {
-      setUser({ username, password });
+      token && setUser({ username, password });
       callback();
     });
   };

@@ -1,8 +1,8 @@
 import * as React from "react";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
+import Dashboard from "../pages/DashBoard/Dashboard";
 import Layout from "../components/layout/Layout";
 import useAuth from "../hooks/UseAuth";
-import Dashboard from "../pages/DashBoard/Dashboard";
 import LoginPage from "../pages/Login";
 
 function RequireAuth({ children }: { children: JSX.Element }) {
@@ -21,33 +21,11 @@ function RequireAuth({ children }: { children: JSX.Element }) {
   return children;
 }
 
-export default function AppRoutes() {
+export default function DashBoardRoutes() {
   return (
     <Routes>
-      <Route element={<Layout />}>
-        <Route
-          path="/"
-          element={
-            <RequireAuth>
-              <Dashboard />
-            </RequireAuth>
-          }
-        />
-        <Route path="/login" element={<LoginPage />} />
-        <Route
-          path="/dashboard/*"
-          element={
-            <>
-              <RequireAuth>
-                <Dashboard />
-              </RequireAuth>
-              {/* <Route path={`admin`} element={<>admin</>} />
-              <Route path={`partners`} element={"partners"} /> */}
-            </>
-          }
-        />
-      </Route>
-      <Route path="*" element={<>404</>} />
+      <Route path={`/admin`} element={"admin"} />
+      <Route path={`/partners`} element={"partners"} />
     </Routes>
   );
 }
