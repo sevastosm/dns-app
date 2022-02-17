@@ -1,4 +1,7 @@
 import * as React from "react";
+import { useNavigate } from "react-router-dom";
+import useAuth from "../../hooks/UseAuth";
+
 // import { useHistory } from "react-router-dom";
 
 import { makeStyles, Theme } from "@material-ui/core/styles";
@@ -23,7 +26,8 @@ interface IAppProps {}
 
 const DashBoardHeader: React.FunctionComponent<IAppProps> = (props) => {
   const drawerWidth = 240;
-
+  let auth = useAuth();
+  let navigate = useNavigate();
   const useStyles = makeStyles((theme: Theme) => ({
     root: {
       display: "flex",
@@ -84,10 +88,8 @@ const DashBoardHeader: React.FunctionComponent<IAppProps> = (props) => {
     },
   }));
 
-  // let history = useHistory();
   const HandleLogout = () => {
-    localStorage.removeItem("AppToken");
-    // history.push("/")
+    auth.signout(() => navigate("/"));
   };
 
   const classes = useStyles();

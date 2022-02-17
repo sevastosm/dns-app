@@ -3,8 +3,14 @@ import AppRoutes from "./routes/Routes";
 
 export default function App() {
   return (
-    <AuthProvider>
-      <AppRoutes />
-    </AuthProvider>
+    <>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      />
+      <AuthProvider>
+        <AppRoutes />
+      </AuthProvider>
+    </>
   );
 }

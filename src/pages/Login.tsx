@@ -15,7 +15,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { getToken } from "../api/fetch";
+import { getToken, makeRequest } from "../api/fetch";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -53,14 +53,13 @@ export default function LoginPage() {
     const password = formData.get("password") as string;
 
     auth.signin(username, password, async () => {
-      const token = await getToken({ username, password });
       // Send them back to the page they tried to visit when they were
       // redirected to the login page. Use { replace: true } so we don't create
       // another entry in the history stack for the login page.  This means that
       // when they get to the protected page and click the back button, they
       // won't end up back on the login page, which is also really nice for the
       // user experience.
-      token && navigate(from, { replace: true });
+      navigate(from, { replace: true });
     });
   }
 

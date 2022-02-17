@@ -6,11 +6,14 @@ import Dashboard from "../pages/DashBoard/Dashboard";
 import LoginPage from "../pages/Login";
 
 function RequireAuth({ children }: { children: JSX.Element }) {
-  let auth = useAuth();
+  let { user } = useAuth();
   let location = useLocation();
   const token = localStorage.getItem("AppToken");
+  if (location.pathname === "/") {
+    return <Navigate to="/dashboard" state={{ from: location }} replace />;
+  }
 
-  if (!auth.user && !token) {
+  if (!user && !token) {
     // Redirect them to the /login page, but save the current location they were
     // trying to go to when they were redirected. This allows us to send them
     // along to that page after they login, which is a nicer user experience
