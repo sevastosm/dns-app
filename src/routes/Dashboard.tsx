@@ -5,7 +5,6 @@ import Partners from "../pages/Partners/Partners";
 
 export default function DashBoardRoutes() {
   const { user } = useAuth();
-  console.log("user", user);
   const superAdmin = user?.roles.includes("SuperAdmin");
 
   return (

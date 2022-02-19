@@ -11,11 +11,7 @@ import useAuth from "../../hooks/UseAuth";
 export default function MainListItems() {
   const params = useSearchParams();
   const { user } = useAuth();
-  console.log("user", user);
   const superAdmin = user?.roles.includes("SuperAdmin");
-
-  console.log("useSearchParams", useLocation());
-
   const pathname = "dashboard";
   return (
     <div>

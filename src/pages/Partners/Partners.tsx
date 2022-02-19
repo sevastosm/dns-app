@@ -71,30 +71,30 @@ export default function Partners(props: IAppProps) {
   const url = constructGetURL("/Partners/obj?pars=", { SearchValue: "" });
   const { partners, setPartners } = React.useContext(AuthContext);
 
-  const [p, setP] = React.useState(null);
-  const getPartners = async () => {
+  const getPartners = React.useCallback(async () => {
     const data = await makeRequest("GET", url);
-    const filterd =
-      data &&
-      data.map((d: any) => {
-        const {
-          partnerID,
-          parentID,
-          createdOn,
-          createdBy,
-          modifiedOn,
-          modifiedBy,
-          passsword,
-          ...rest
-        } = d;
-        return rest;
-      });
-    setP(filterd);
-  };
+    setPartners(data);
+  }, [setPartners, url]);
+
+  const filterd =
+    partners &&
+    partners.map((d: any) => {
+      const {
+        partnerID,
+        parentID,
+        createdOn,
+        createdBy,
+        modifiedOn,
+        modifiedBy,
+        passsword,
+        ...rest
+      } = d;
+      return rest;
+    });
 
   React.useEffect(() => {
     getPartners();
-  }, [getPartners, url]);
+  }, [getPartners]);
 
-  return p && <DataTable data={p} columns={columns} />;
+  return <DataTable data={filterd} columns={columns} />;
 }

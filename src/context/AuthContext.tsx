@@ -57,7 +57,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     if (user) return;
     const u: any = localStorage.getItem("user");
     const userData: any = JSON.parse(u);
-    console.log("0", userData);
     userData && setUser(userData);
   }, []);
 

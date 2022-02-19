@@ -108,7 +108,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 interface IAppProps {}
 const Dashboard: React.FC<IAppProps> = (props) => {
-  console.log("PROPS", props);
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => {
