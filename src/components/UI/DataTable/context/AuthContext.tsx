@@ -1,5 +1,5 @@
 import * as React from "react";
-import { getToken, makeRequest } from "../api/fetch";
+import { getToken, makeRequest } from "../../../../api/fetch";
 
 const fakeAuthProvider = {
   isAuthenticated: false,

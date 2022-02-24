@@ -1,8 +1,7 @@
 import * as React from "react";
 import { makeRequest } from "../../api/fetch";
-import { AuthContext } from "../../context/AuthContext";
-import DataTable from "../../components/UI/DataTable";
-import { constants } from "fs";
+import { AuthContext } from "../../components/UI/DataTable/context/AuthContext";
+import DataTable from "../../components/UI/table/Table";
 
 export interface IAppProps {}
 
@@ -11,60 +10,60 @@ const constructGetURL = (url: string, params: any) => {
   return url + queryString;
 };
 const columns = [
-  // { title: "partnerID", field: "partnerID" },
-  // { title: "parentID", field: "parentID" },
-  { title: "ΟΝΟΜΑΤΕΠΩΝΥΜΟ", field: "name" },
-  { title: "ΝΟΜΙΜΟΣ ΕΚΠΡΟΣΩΠΟΣ", field: "legalRepresentive" },
-  { title: "ΠΕΡΙΟΧΗ", field: "district" },
-  { title: "ΔΙΕΥΘΥΝΣΗ", field: "address" },
-  { title: "ΤΚ", field: "zip" },
-  { title: "ΙΔΙΟΤΗΤΑ", field: "ocupationID" },
-  { title: "ΑΦΜ", field: "vatID" },
-  { title: "ΤΗΛΕΦΩΝΟ", field: "phone1" },
-  { title: "ΤΗΛΕΦΩΝΟ 2", field: "phone2" },
-  { title: "ΚΙΝΗΤΟ", field: "mobile1" },
-  { title: "ΚΙΝΗΤΟ 2", field: "mobile2" },
-  { title: "EMAIL", field: "email" },
-  { title: "ΥΠΕΥΘΥΝΟΣ ΡΕΥΜΑΤΟΣ", field: "contactName" },
-  { title: "ΛΟΙΠΕΣ ΠΛΗΡΟΦΟΡΙΕΣ", field: "infos" },
-  { title: "USERNAME", field: "userName" },
-  // { title: "passsword", field: "passsword" },
-  { title: "ΔΕΝΤΡΟ ΚΑΤΩ ΑΠΌ", field: "competitionAr" },
-  { title: "ARGO PAY SPOT", field: "argoPaySpotID" },
-  { title: "ΔΕΛΤΙΟ ΣΥΣΤΑΣΗΣ ΑΠΌ ΣΥΝΕΡΓΑΤΗ", field: "recommendationSheet" },
-  { title: "ΑΠΟΣΤΟΛΗ ΣΥΜΒΑΣΗΣ ΓΙΑ ΥΠΟΓΡΑΦΗ", field: "partnerToSignDate" },
+  // { title: "partnerID", id: "partnerID" },
+  // { title: "parentID", id: "parentID" },
+  { title: "ΟΝΟΜΑΤΕΠΩΝΥΜΟ", id: "name" },
+  { title: "ΝΟΜΙΜΟΣ ΕΚΠΡΟΣΩΠΟΣ", id: "legalRepresentive" },
+  { title: "ΠΕΡΙΟΧΗ", id: "district" },
+  { title: "ΔΙΕΥΘΥΝΣΗ", id: "address" },
+  { title: "ΤΚ", id: "zip" },
+  { title: "ΙΔΙΟΤΗΤΑ", id: "ocupationID" },
+  { title: "ΑΦΜ", id: "vatID" },
+  { title: "ΤΗΛΕΦΩΝΟ", id: "phone1" },
+  { title: "ΤΗΛΕΦΩΝΟ 2", id: "phone2" },
+  { title: "ΚΙΝΗΤΟ", id: "mobile1" },
+  { title: "ΚΙΝΗΤΟ 2", id: "mobile2" },
+  { title: "EMAIL", id: "email" },
+  { title: "ΥΠΕΥΘΥΝΟΣ ΡΕΥΜΑΤΟΣ", id: "contactName" },
+  { title: "ΛΟΙΠΕΣ ΠΛΗΡΟΦΟΡΙΕΣ", id: "infos" },
+  { title: "USERNAME", id: "userName" },
+  // { title: "passsword", id: "passsword" },
+  { title: "ΔΕΝΤΡΟ ΚΑΤΩ ΑΠΌ", id: "competitionAr" },
+  { title: "ARGO PAY SPOT", id: "argoPaySpotID" },
+  { title: "ΔΕΛΤΙΟ ΣΥΣΤΑΣΗΣ ΑΠΌ ΣΥΝΕΡΓΑΤΗ", id: "recommendationSheet" },
+  { title: "ΑΠΟΣΤΟΛΗ ΣΥΜΒΑΣΗΣ ΓΙΑ ΥΠΟΓΡΑΦΗ", id: "partnerToSignDate" },
   {
     title: "ΕΠΙΣΤΡΟΦΗ ΥΠΟΓΕΓΡΑΜΜΕΝΗΣ ΣΥΜΒΑΣΗΣ ΑΠΌ ΣΥΝΕΡΓΑΤΗ",
-    field: "partnerSignedDate",
+    id: "partnerSignedDate",
   },
   {
     title: "ΑΠΟΣΤΟΛΗ ΥΠΟΓΕΓΡΑΜΜΕΝΗΣ ΣΥΜΒΑΣΗΣ ΑΠΌ ΣΥΝΕΡΓΑΤΗ-ΕΤΑΙΡΕΙΑ",
-    field: "contractSigned",
+    id: "contractSigned",
   },
-  { title: "ΑΠΟΣΤΟΛΗ ΑΙΤΗΜΑΤΟΣ ΚΩΔΙΚΟΥ", field: "requestCode" },
+  { title: "ΑΠΟΣΤΟΛΗ ΑΙΤΗΜΑΤΟΣ ΚΩΔΙΚΟΥ", id: "requestCode" },
   {
     title: "ΠΑΡΑΛΑΒΗ ΚΑΙ ΑΠΟΣΤΟΛΗ ΚΩΔΙΚΩΝ ΖΕΝΙΘ",
-    field: "deliverZenithCodes",
+    id: "deliverZenithCodes",
   },
-  { title: "ΟΙΚΙΑΚΟ ΕΠΑΓΓΕΛΜΑΤΙΚΟ ΧΑΜΗΛΗ ΤΑΣΗ", field: "homeLowVoltageID" },
-  { title: "AIR TIME ΧΑΜΗΛΗΣ ΤΑΣΗΣ", field: "airTimeLowVoltage" },
-  { title: "ΑΝΑΝΕΩΣΗ", field: "renewalElectricity" },
-  { title: "ΜΕΣΗ ΤΑΣΗ", field: "midlVoltage" },
-  { title: "AIR TIME ΜΕΣΗΣ ΤΑΣΗΣ", field: "airTimeMidlVoltage" },
+  { title: "ΟΙΚΙΑΚΟ ΕΠΑΓΓΕΛΜΑΤΙΚΟ ΧΑΜΗΛΗ ΤΑΣΗ", id: "homeLowVoltageID" },
+  { title: "AIR TIME ΧΑΜΗΛΗΣ ΤΑΣΗΣ", id: "airTimeLowVoltage" },
+  { title: "ΑΝΑΝΕΩΣΗ", id: "renewalElectricity" },
+  { title: "ΜΕΣΗ ΤΑΣΗ", id: "midlVoltage" },
+  { title: "AIR TIME ΜΕΣΗΣ ΤΑΣΗΣ", id: "airTimeMidlVoltage" },
   {
     title: "ΟΙΚΙΑΚΟ ΑΥΤΟΝΟΜΟ ΕΠΑΓΓΕΛΜΑΤΙΚΟ ΚΕΝΤΡΙΚΗ ΘΕΡΜΑΝΣΗ",
-    field: "homeAutoProGas",
+    id: "homeAutoProGas",
   },
-  { title: "AIRTIME", field: "airTime1" },
-  { title: "AIRTIME 2", field: "airTime2" },
-  { title: "ΑΝΑΝΕΩΣΗ", field: "renewalGas" },
-  { title: "ΣΧΟΛΙΑ", field: "comments" },
-  { title: "ΤΡΑΠΕΖΑ", field: "bankID" },
-  { title: "IBAN", field: "iban" },
-  // { title: "createdOn", field: "createdOn" },
-  // { title: "createdBy", field: "createdBy" },
-  // { title: "modifiedOn", field: "modifiedOn" },
-  // { title: "modifiedBy", field: "modifiedBy" },
+  { title: "AIRTIME", id: "airTime1" },
+  { title: "AIRTIME 2", id: "airTime2" },
+  { title: "ΑΝΑΝΕΩΣΗ", id: "renewalGas" },
+  { title: "ΣΧΟΛΙΑ", id: "comments" },
+  { title: "ΤΡΑΠΕΖΑ", id: "bankID" },
+  { title: "IBAN", id: "iban" },
+  // { title: "createdOn", id: "createdOn" },
+  // { title: "createdBy", id: "createdBy" },
+  // { title: "modifiedOn", id: "modifiedOn" },
+  // { title: "modifiedBy", id: "modifiedBy" },
 ];
 
 export default function Partners(props: IAppProps) {
@@ -96,5 +95,22 @@ export default function Partners(props: IAppProps) {
     getPartners();
   }, [getPartners]);
 
-  return <DataTable data={filterd} columns={columns} />;
+  const constuctData =
+    partners &&
+    partners.map((p: any, i: number) => {
+      return { ...p, id: i, editMode: false };
+    });
+
+  return (
+    partners && (
+      <DataTable
+        onRowclick={() => false}
+        rows={constuctData}
+        headCells={columns}
+        name=""
+        add
+        stickyHeader
+      />
+    )
+  );
 }

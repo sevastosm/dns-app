@@ -12,13 +12,15 @@ code {
     monospace;
 }
 
-.dataTable th {
-  padding: 0;
-  line-height: 1;
-  font-size: 11px;
+#root .MuiTableCell-root,
+.MuiTableCell-root .MuiInput-input {
+  font-size: 12px;
+  padding: 2px 5px;
+  text-align: left;
+  border: 0.2px solid #1414141c;
 }
-.dataTable td {
-  padding: 0;
-  line-height: 1;
-  font-size: 11px !important;
+
+#root .MuiTableRow-root.Mui-selected,
+.MuiTableRow-root.Mui-selected:hover {
+  background-color: rgb(0 245 93 / 8%);
 }
