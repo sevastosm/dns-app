@@ -29,3 +29,12 @@ code {
   min-height: 24px;
   display: block;
 }
+#root .MuiOutlinedInput-root {
+  padding: 0px;
+  font-size: 12px;
+}
+
+#root .MuiOutlinedInput-root > input {
+  padding: 5px;
+  font-size: 12px;
+}
