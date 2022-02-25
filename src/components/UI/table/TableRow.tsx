@@ -1,4 +1,5 @@
 import { TableRow, TableCell, TextField } from "@mui/material";
+import ComboBox from "../AutoComplete";
 
 import React from "react";
 
@@ -9,6 +10,7 @@ type Props = {
   maxCols: any;
   headCells: any;
   index: number;
+  setEditedRow: any;
 };
 
 export default function TableRows({
@@ -18,8 +20,20 @@ export default function TableRows({
   maxCols,
   headCells,
   index,
+  setEditedRow,
 }: Props) {
   const [row, setRow] = React.useState<any>([]);
+
+  const handleChange = (e: any) => {
+    e.preventDefault();
+    console.log("EEE", e);
+    setEditedRow({ ...selectedRow, [e.target.name]: e.target.value });
+  };
+  const handleChange2 = (e: any, name: string) => {
+    e.preventDefault();
+    console.log("EEE", e);
+    setEditedRow({ ...selectedRow, [name]: e.target.innerHTML });
+  };
 
   React.useEffect(() => {
     setRow(data);
@@ -42,17 +56,26 @@ export default function TableRows({
           headCells.some((e: any) => e.id === r) &&
           (row.editMode && selected ? (
             <TableCell key={i}>
-              <TextField
-                name={r}
-                key={i}
-                id="standard-basic"
-                // label={data}
-                defaultValue={data}
-                variant="standard"
-              />
+              {r === "competitionAr" ||
+              r === "ocupationID" ||
+              r === "argoPaySpotID" ? (
+                <ComboBox onChange={handleChange2} name={r} />
+              ) : (
+                <TextField
+                  name={r}
+                  key={i}
+                  id="standard-basic"
+                  // label={data}
+                  defaultValue={data}
+                  variant="standard"
+                  onChange={handleChange}
+                />
+              )}
             </TableCell>
           ) : (
-            <TableCell key={i}>{data}</TableCell>
+            <TableCell key={i}>
+              <span>{data}</span>
+            </TableCell>
           ))
         );
       })}

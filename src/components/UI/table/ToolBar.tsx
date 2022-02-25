@@ -1,5 +1,10 @@
 import React, { useEffect } from "react";
 import { Button } from "@mui/material";
+import { SaveRounded } from "@mui/icons-material/";
+import ModeEditIcon from "@mui/icons-material/ModeEdit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import CancelIcon from "@mui/icons-material/Cancel";
+import AddIcon from "@mui/icons-material/Add";
 
 type Props = {
   selectedRow: any;
@@ -23,57 +28,66 @@ export default function ToolBar({
   addRow,
   editRow,
 }: Props) {
-  console.log("selectedRow", selectedRow);
-  console.log("editRow", editRow);
-
-  // const [row, setRow] = React.useState(selectedRow);
-
-  const handleSave = () => false;
-
-  // useEffect(() => {
-  //   setRow(selectedRow);
-  // }, [selectedRow]);
-
   return (
     <div style={{ display: "flex" }}>
       {add && (
-        <div style={{ margin: "20px 0" }}>
+        <div style={{ margin: "20px 30px" }}>
           <Button variant="contained" color="primary" onClick={addRowCallback}>
-            {addRow ? "ΑΚΥΡΩΣΗ" : "+"}
+            {addRow ? <CancelIcon /> : <AddIcon />}
           </Button>
         </div>
       )}
       {selectedRow && (
-        <div style={{ margin: "20px 0" }}>
+        <div
+          style={{
+            margin: "20px 0",
+            display: "flex",
+            width: "100%",
+            justifyContent: "center",
+            position: "relative",
+          }}
+        >
           {editRow && selectedRow.editMode ? (
-            <>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                width: "200px",
+              }}
+            >
               <Button
                 variant="contained"
                 color="primary"
                 onClick={(e) => edditRowCallback(e, false)}
               >
-                "ΑΚΥΡΩΣΗ"
+                <CancelIcon />
               </Button>
-              <Button variant="contained" color="primary" onClick={handleSave}>
-                Save
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={saveRowCallback}
+              >
+                <SaveRounded />
               </Button>
-            </>
+            </div>
           ) : (
             <Button
               variant="contained"
               color="primary"
               onClick={(e) => edditRowCallback(e, true)}
             >
-              "EDIT"
+              <ModeEditIcon />
             </Button>
           )}
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={deleteRowCallBack}
-          >
-            Delete
-          </Button>
+          <div style={{ position: "absolute", right: "100px" }}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={deleteRowCallBack}
+            >
+              <DeleteIcon />
+            </Button>
+          </div>
         </div>
       )}
       {/* useEffect(() => {

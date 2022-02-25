@@ -33,6 +33,14 @@ export default function MainListItems() {
           <ListItemText primary="Partners" />
         </Link>
       </ListItem>
+      <ListItem button>
+        <ListItemIcon>
+          <PeopleIcon />
+        </ListItemIcon>
+        <Link to="partners-status">
+          <ListItemText primary="Partners Status" />
+        </Link>
+      </ListItem>
     </div>
   );
 }

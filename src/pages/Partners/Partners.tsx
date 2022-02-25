@@ -97,9 +97,11 @@ export default function Partners(props: IAppProps) {
 
   const constuctData =
     partners &&
-    partners.map((p: any, i: number) => {
-      return { ...p, id: i, editMode: false };
-    });
+    partners
+      .filter((p: any) => p.partnerID !== 7)
+      .map((p: any, i: number) => {
+        return { ...p, id: i, editMode: false };
+      });
 
   return (
     partners && (

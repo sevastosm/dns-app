@@ -88,7 +88,7 @@ type TableProps = {
   rowsPerPagenum?: number;
   getPdf?: any;
 };
-
+let editedRow = {};
 export default function DataTable(props: TableProps) {
   const {
     onRowclick,
@@ -114,6 +114,11 @@ export default function DataTable(props: TableProps) {
   const [tableRows, setRow] = useState(rows);
   const [addRow, setAddwRow] = useState(false);
   const [editRow, setEditRow] = useState(false);
+  // const [editedRow, setEditedRow] = React.useState<any>({});
+
+  const setEditedRow = (row: any) => {
+    editedRow = row;
+  };
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
@@ -125,7 +130,19 @@ export default function DataTable(props: TableProps) {
   };
   const handleAddRowClick = (event: React.MouseEvent<unknown>) => {
     event.preventDefault();
-    setAddwRow(!addRow);
+
+    const r: any = {};
+    Object.keys(tableRows[0]).map((key: any) => {
+      return (r[key] = "");
+    });
+    const ed = { ...r, editMode: true, id: "id" + new Date().getTime() };
+
+    setRow([...tableRows, ed]);
+    setSelectedRow(ed);
+    setEditRow(true);
+    // setSelectedRow(emptyRow);
+    // setEditRow(true);
+    // setAddwRow(!addRow);
   };
   const handleEditRow = (event: React.MouseEvent<unknown>, edit: boolean) => {
     console.log("EDITMODE", edit);
@@ -141,8 +158,15 @@ export default function DataTable(props: TableProps) {
     setRow(newData);
     setEditRow(edit);
   };
-  const handleSaveRow = (row: any) => {
-    console.log("SavedRow,row");
+  const handleSaveRow = () => {
+    const newEditedRow = { ...editedRow, editMode: false };
+    const selectedIndex = tableRows.findIndex(
+      (i: any) => i.id === selectedRow.id
+    );
+    const newData = [...tableRows];
+    newData[selectedIndex] = newEditedRow;
+    setRow(newData);
+    setEditRow(false);
   };
 
   const handleSaveOrder = (order: any) => {
@@ -180,9 +204,9 @@ export default function DataTable(props: TableProps) {
     setPage(0);
   };
 
-  useEffect(() => {
-    !add && setRow(rows);
-  }, [rows, add]);
+  // useEffect(() => {
+  //   !add && setRow(rows);
+  // }, [rows, add]);
 
   console.log("ROWS", rows);
 
@@ -232,6 +256,7 @@ export default function DataTable(props: TableProps) {
                       maxCols={maxCols}
                       headCells={headCells}
                       index={index}
+                      setEditedRow={setEditedRow}
                     />
                   );
                 })}
