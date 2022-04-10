@@ -1,7 +1,8 @@
 import * as React from "react";
 import { makeRequest } from "../../api/fetch";
-import { AuthContext } from "../../components/UI/DataTable/context/AuthContext";
+import { AuthContext } from "../../components/UI/context/AuthContext";
 import DataTable from "../../components/UI/table/Table";
+import PartnerDetails from "./PartnerDetails";
 
 export interface IAppProps {}
 
@@ -10,8 +11,7 @@ const constructGetURL = (url: string, params: any) => {
   return url + queryString;
 };
 const columns = [
-  // { title: "partnerID", id: "partnerID" },
-  // { title: "parentID", id: "parentID" },
+  { title: "ACTIONS", id: "actions" },
   { title: "ΟΝΟΜΑΤΕΠΩΝΥΜΟ", id: "name" },
   { title: "ΝΟΜΙΜΟΣ ΕΚΠΡΟΣΩΠΟΣ", id: "legalRepresentive" },
   { title: "ΠΕΡΙΟΧΗ", id: "district" },
@@ -26,44 +26,8 @@ const columns = [
   { title: "EMAIL", id: "email" },
   { title: "ΥΠΕΥΘΥΝΟΣ ΡΕΥΜΑΤΟΣ", id: "contactName" },
   { title: "ΛΟΙΠΕΣ ΠΛΗΡΟΦΟΡΙΕΣ", id: "infos" },
-  { title: "USERNAME", id: "userName" },
-  // { title: "passsword", id: "passsword" },
-  { title: "ΔΕΝΤΡΟ ΚΑΤΩ ΑΠΌ", id: "competitionAr" },
-  { title: "ARGO PAY SPOT", id: "argoPaySpotID" },
-  { title: "ΔΕΛΤΙΟ ΣΥΣΤΑΣΗΣ ΑΠΌ ΣΥΝΕΡΓΑΤΗ", id: "recommendationSheet" },
-  { title: "ΑΠΟΣΤΟΛΗ ΣΥΜΒΑΣΗΣ ΓΙΑ ΥΠΟΓΡΑΦΗ", id: "partnerToSignDate" },
-  {
-    title: "ΕΠΙΣΤΡΟΦΗ ΥΠΟΓΕΓΡΑΜΜΕΝΗΣ ΣΥΜΒΑΣΗΣ ΑΠΌ ΣΥΝΕΡΓΑΤΗ",
-    id: "partnerSignedDate",
-  },
-  {
-    title: "ΑΠΟΣΤΟΛΗ ΥΠΟΓΕΓΡΑΜΜΕΝΗΣ ΣΥΜΒΑΣΗΣ ΑΠΌ ΣΥΝΕΡΓΑΤΗ-ΕΤΑΙΡΕΙΑ",
-    id: "contractSigned",
-  },
-  { title: "ΑΠΟΣΤΟΛΗ ΑΙΤΗΜΑΤΟΣ ΚΩΔΙΚΟΥ", id: "requestCode" },
-  {
-    title: "ΠΑΡΑΛΑΒΗ ΚΑΙ ΑΠΟΣΤΟΛΗ ΚΩΔΙΚΩΝ ΖΕΝΙΘ",
-    id: "deliverZenithCodes",
-  },
-  { title: "ΟΙΚΙΑΚΟ ΕΠΑΓΓΕΛΜΑΤΙΚΟ ΧΑΜΗΛΗ ΤΑΣΗ", id: "homeLowVoltageID" },
-  { title: "AIR TIME ΧΑΜΗΛΗΣ ΤΑΣΗΣ", id: "airTimeLowVoltage" },
-  { title: "ΑΝΑΝΕΩΣΗ", id: "renewalElectricity" },
-  { title: "ΜΕΣΗ ΤΑΣΗ", id: "midlVoltage" },
-  { title: "AIR TIME ΜΕΣΗΣ ΤΑΣΗΣ", id: "airTimeMidlVoltage" },
-  {
-    title: "ΟΙΚΙΑΚΟ ΑΥΤΟΝΟΜΟ ΕΠΑΓΓΕΛΜΑΤΙΚΟ ΚΕΝΤΡΙΚΗ ΘΕΡΜΑΝΣΗ",
-    id: "homeAutoProGas",
-  },
-  { title: "AIRTIME", id: "airTime1" },
-  { title: "AIRTIME 2", id: "airTime2" },
-  { title: "ΑΝΑΝΕΩΣΗ", id: "renewalGas" },
-  { title: "ΣΧΟΛΙΑ", id: "comments" },
   { title: "ΤΡΑΠΕΖΑ", id: "bankID" },
   { title: "IBAN", id: "iban" },
-  // { title: "createdOn", id: "createdOn" },
-  // { title: "createdBy", id: "createdBy" },
-  // { title: "modifiedOn", id: "modifiedOn" },
-  // { title: "modifiedBy", id: "modifiedBy" },
 ];
 
 export default function Partners(props: IAppProps) {
@@ -74,22 +38,6 @@ export default function Partners(props: IAppProps) {
     const data = await makeRequest("GET", url);
     setPartners(data);
   }, [setPartners, url]);
-
-  const filterd =
-    partners &&
-    partners.map((d: any) => {
-      const {
-        partnerID,
-        parentID,
-        createdOn,
-        createdBy,
-        modifiedOn,
-        modifiedBy,
-        passsword,
-        ...rest
-      } = d;
-      return rest;
-    });
 
   React.useEffect(() => {
     getPartners();
@@ -102,9 +50,10 @@ export default function Partners(props: IAppProps) {
       .map((p: any, i: number) => {
         return { ...p, id: i, editMode: false };
       });
-
+  // return <> PAPAPALALALAL</>;
   return (
-    partners && (
+    <>
+      partners && (
       <DataTable
         onRowclick={() => false}
         rows={constuctData}
@@ -113,6 +62,7 @@ export default function Partners(props: IAppProps) {
         add
         stickyHeader
       />
-    )
+      <PartnerDetails />
+    </>
   );
 }

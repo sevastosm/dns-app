@@ -1,6 +1,6 @@
 import * as React from "react";
 import { makeRequest } from "../../api/fetch";
-import { AuthContext } from "../../components/UI/DataTable/context/AuthContext";
+import { AuthContext } from "../../components/UI/context/AuthContext";
 import DataTable from "../../components/UI/table/Table";
 
 export interface IAppProps {}

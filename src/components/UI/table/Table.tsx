@@ -110,6 +110,7 @@ export default function DataTable(props: TableProps) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(rowsPerPagenum);
   const [selectedRow, setSelectedRow] = React.useState<any>(null);
+  const [editModeIndex, setEditModeIndex] = React.useState<any>(null);
 
   const [tableRows, setRow] = useState(rows);
   const [addRow, setAddwRow] = useState(false);
@@ -144,29 +145,24 @@ export default function DataTable(props: TableProps) {
     // setEditRow(true);
     // setAddwRow(!addRow);
   };
-  const handleEditRow = (event: React.MouseEvent<unknown>, edit: boolean) => {
-    console.log("EDITMODE", edit);
-    event.preventDefault();
-    const newRow = { ...selectedRow, editMode: edit };
+  const handleEditRow = (row: any, index: any) => {
+    const newRow = { ...row };
+    setEditModeIndex(index);
     setSelectedRow(newRow);
 
-    const selectedIndex = tableRows.findIndex(
-      (i: any) => i.id === selectedRow.id
-    );
-    const newData = [...tableRows];
-    newData[selectedIndex] = newRow;
-    setRow(newData);
-    setEditRow(edit);
+    // const selectedIndex = tableRows.findIndex((i: any) => i.id === newRow.id);
+    // const newData = [...tableRows];
+    // newData[selectedIndex] = newRow;
+    // setRow(newData);
   };
-  const handleSaveRow = () => {
-    const newEditedRow = { ...editedRow, editMode: false };
-    const selectedIndex = tableRows.findIndex(
-      (i: any) => i.id === selectedRow.id
-    );
+  const handleSaveRow = (row: any, index: any) => {
+    // const selectedIndex = tableRows.findIndex(
+    //   (i: any) => i.id === selectedRow.id
+    // );
     const newData = [...tableRows];
-    newData[selectedIndex] = newEditedRow;
+    newData[index] = row;
     setRow(newData);
-    setEditRow(false);
+    setEditModeIndex(null);
   };
 
   const handleSaveOrder = (order: any) => {
@@ -176,21 +172,20 @@ export default function DataTable(props: TableProps) {
     setAddwRow(false);
   };
 
-  const handleDeleteRow = (index: any) => {
-    const selectedIndex = tableRows.findIndex(
-      (i: any) => i.id === selectedRow.id
-    );
-    const newtableRows = tableRows.filter((i: any) => i.id !== selectedRow.id);
+  const handleDeleteRow = (row: any) => {
+    const newtableRows = tableRows.filter((i: any) => i.id !== row.id);
     setRow(newtableRows);
     setSelectedRow(null);
-    setEditRow(false);
+    setEditModeIndex(null);
   };
 
   const handleRowClick = (event: React.MouseEvent<unknown>, row: any) => {
     event.preventDefault();
+    // setEditModeIndex(null);
+
     setSelectedRow(row);
-    setEditRow(row.editMode);
-    onRowclick([row]);
+    // setEditRow(row.editMode);
+    // onRowclick([row]);
   };
 
   const handleChangePage = (event: unknown, newPage: number) => {
@@ -221,9 +216,6 @@ export default function DataTable(props: TableProps) {
         </span>
         <ToolBar
           addRowCallback={handleAddRowClick}
-          edditRowCallback={handleEditRow}
-          saveRowCallback={handleSaveRow}
-          deleteRowCallBack={handleDeleteRow}
           selectedRow={selectedRow}
           add={add}
           addRow={addRow}
@@ -252,11 +244,15 @@ export default function DataTable(props: TableProps) {
                     <TableRow
                       data={row}
                       handleRowClick={handleRowClick}
+                      handleSaveRow={handleSaveRow}
                       selectedRow={selectedRow}
                       maxCols={maxCols}
                       headCells={headCells}
                       index={index}
                       setEditedRow={setEditedRow}
+                      onRowDelete={handleDeleteRow}
+                      onRowEdit={handleEditRow}
+                      editModeIndex={editModeIndex}
                     />
                   );
                 })}

@@ -27,7 +27,7 @@ code {
 
 #root .MuiTableCell-root > span {
   min-height: 24px;
-  display: block;
+  display: flex;
 }
 #root .MuiOutlinedInput-root {
   padding: 0px;

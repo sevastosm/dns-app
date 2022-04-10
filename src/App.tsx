@@ -1,4 +1,4 @@
-import { AuthProvider } from "./components/UI/DataTable/context/AuthContext";
+import { AuthProvider } from "./components/UI/context/AuthContext";
 import AppRoutes from "./routes/Routes";
 
 export default function App() {
