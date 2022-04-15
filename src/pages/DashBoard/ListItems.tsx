@@ -1,11 +1,9 @@
 import React from "react";
 import { Link, useLocation, useSearchParams } from "react-router-dom";
 
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import AccountBox from "@material-ui/icons/AccountBox";
-import PeopleIcon from "@material-ui/icons/People";
+import { ListItem, ListItemIcon, ListItemText } from "@mui/material";
+import AccountBox from "@mui/icons-material/AccountBox";
+import PeopleIcon from "@mui/icons-material/People";
 import useAuth from "../../hooks/UseAuth";
 
 export default function MainListItems() {
@@ -33,14 +31,14 @@ export default function MainListItems() {
           <ListItemText primary="Partners" />
         </Link>
       </ListItem>
-      <ListItem button>
+      {/* <ListItem button>
         <ListItemIcon>
           <PeopleIcon />
         </ListItemIcon>
         <Link to="partners-status">
           <ListItemText primary="Partners Status" />
         </Link>
-      </ListItem>
+      </ListItem> */}
     </div>
   );
 }

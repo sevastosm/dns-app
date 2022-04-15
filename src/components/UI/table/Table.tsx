@@ -1,15 +1,26 @@
 import React, { useState, useEffect } from "react";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableContainer from "@material-ui/core/TableContainer";
-import TablePagination from "@material-ui/core/TablePagination";
+import {
+  Table,
+  TableBody,
+  TableContainer,
+  TablePagination,
+} from "@mui/material";
 import EnhancedTableHead from "./Head";
 import ToolBar from "./ToolBar";
 import TableRow from "./TableRow";
 import { NewRow } from "./NewRow";
 
 import { Data } from "../../../types";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from "@mui/material";
+import Form from "../crudForm/Form";
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
@@ -73,7 +84,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 type TableProps = {
-  onRowclick: (data: any) => void;
+  onRowclick?: (data: any) => void;
   rows: Data[];
   headCells: any;
   name: string;
@@ -87,11 +98,11 @@ type TableProps = {
   selectedRow?: any;
   rowsPerPagenum?: number;
   getPdf?: any;
+  rowInfo?: any;
 };
 let editedRow = {};
 export default function DataTable(props: TableProps) {
   const {
-    onRowclick,
     rows,
     headCells,
     clearCell = false,
@@ -101,8 +112,8 @@ export default function DataTable(props: TableProps) {
     pagination = true,
     stickyHeader,
     getRows = () => null,
-    // selectedRow = null,
     rowsPerPagenum = 25,
+    rowInfo = () => false,
   } = props;
   const classes = useStyles();
   const [order, setOrder] = React.useState<Order>("asc");
@@ -115,6 +126,7 @@ export default function DataTable(props: TableProps) {
   const [tableRows, setRow] = useState(rows);
   const [addRow, setAddwRow] = useState(false);
   const [editRow, setEditRow] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   // const [editedRow, setEditedRow] = React.useState<any>({});
 
   const setEditedRow = (row: any) => {
@@ -199,15 +211,9 @@ export default function DataTable(props: TableProps) {
     setPage(0);
   };
 
-  // useEffect(() => {
-  //   !add && setRow(rows);
-  // }, [rows, add]);
-
-  console.log("ROWS", rows);
-
+  if (!rows) return null;
   // const emptyRows =
   //   rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
-  console.log("rows", tableRows);
   return (
     <div className={classes.root}>
       <form>
@@ -253,6 +259,7 @@ export default function DataTable(props: TableProps) {
                       onRowDelete={handleDeleteRow}
                       onRowEdit={handleEditRow}
                       editModeIndex={editModeIndex}
+                      onInfoClick={() => setIsDialogOpen(true)}
                     />
                   );
                 })}
@@ -278,6 +285,19 @@ export default function DataTable(props: TableProps) {
           />
         )}
       </form>
+      {selectedRow && (
+        <Dialog
+          maxWidth="xl"
+          open={isDialogOpen}
+          onClose={() => setIsDialogOpen(false)}
+        >
+          {/* <DialogTitle></DialogTitle> */}
+          <DialogContent>{rowInfo(selectedRow)}</DialogContent>
+          <DialogActions>
+            <Button onClick={() => setIsDialogOpen(false)}>Cancel</Button>
+          </DialogActions>
+        </Dialog>
+      )}
     </div>
   );
 }

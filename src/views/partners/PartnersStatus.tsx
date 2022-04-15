@@ -3,6 +3,8 @@ import { makeRequest } from "../../api/fetch";
 import { AuthContext } from "../../components/UI/context/AuthContext";
 import DataTable from "../../components/UI/table/Table";
 
+import { Paper } from "@mui/material";
+
 export interface IAppProps {}
 
 const constructGetURL = (url: string, params: any) => {
@@ -62,14 +64,16 @@ export default function Partners(props: IAppProps) {
 
   return (
     partners && (
-      <DataTable
-        onRowclick={() => false}
-        rows={constuctData}
-        headCells={columns}
-        name=""
-        add
-        stickyHeader
-      />
+      <Paper elevation={3}>
+        <DataTable
+          onRowclick={() => false}
+          rows={constuctData}
+          headCells={columns}
+          name=""
+          add
+          stickyHeader
+        />
+      </Paper>
     )
   );
 }

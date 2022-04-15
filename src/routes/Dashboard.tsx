@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import useAuth from "../hooks/UseAuth";
 import Admin from "../pages/Admin/Admin";
 import Partners from "../pages/Partners/Partners";
-import PartnerStatus from "../pages/Partners/PartnersStatus";
+import PartnerStatus from "../views/partners/PartnersStatus";
 
 export default function DashBoardRoutes() {
   const { user } = useAuth();

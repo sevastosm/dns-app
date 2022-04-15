@@ -2,7 +2,9 @@ import * as React from "react";
 import { makeRequest } from "../../api/fetch";
 import { AuthContext } from "../../components/UI/context/AuthContext";
 import DataTable from "../../components/UI/table/Table";
-import PartnerDetails from "./PartnerDetails";
+import PartnerDetails from "../../views/partners/PartnerDetails";
+
+import { partnerData } from "../../mocks/partners";
 
 export interface IAppProps {}
 
@@ -35,8 +37,8 @@ export default function Partners(props: IAppProps) {
   const { partners, setPartners } = React.useContext(AuthContext);
 
   const getPartners = React.useCallback(async () => {
-    const data = await makeRequest("GET", url);
-    setPartners(data);
+    // const data = await makeRequest("GET", url);
+    setPartners(partnerData);
   }, [setPartners, url]);
 
   React.useEffect(() => {
@@ -48,21 +50,24 @@ export default function Partners(props: IAppProps) {
     partners
       .filter((p: any) => p.partnerID !== 7)
       .map((p: any, i: number) => {
-        return { ...p, id: i, editMode: false };
+        return { ...p, id: i };
       });
   // return <> PAPAPALALALAL</>;
+
+  const rowInfo = (data: any) => <PartnerDetails data={data} />;
+
   return (
     <>
-      partners && (
-      <DataTable
-        onRowclick={() => false}
-        rows={constuctData}
-        headCells={columns}
-        name=""
-        add
-        stickyHeader
-      />
-      <PartnerDetails />
+      {partners && (
+        <DataTable
+          rows={constuctData}
+          headCells={columns}
+          name=""
+          add
+          stickyHeader
+          rowInfo={rowInfo}
+        />
+      )}
     </>
   );
 }

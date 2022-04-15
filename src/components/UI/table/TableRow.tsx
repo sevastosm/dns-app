@@ -5,6 +5,8 @@ import { SaveRounded } from "@mui/icons-material/";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CancelIcon from "@mui/icons-material/Cancel";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+
 import AddIcon from "@mui/icons-material/Add";
 
 import React from "react";
@@ -21,6 +23,7 @@ type Props = {
   onRowEdit: any;
   editModeIndex: any;
   handleSaveRow: any;
+  onInfoClick: any;
 };
 
 export default function TableRows({
@@ -35,6 +38,7 @@ export default function TableRows({
   handleSaveRow,
   onRowDelete,
   onRowEdit,
+  onInfoClick,
 }: Props) {
   const [row, setRow] = React.useState<any>([]);
 
@@ -56,20 +60,21 @@ export default function TableRows({
     onRowDelete(row);
   };
 
+  const handleInfoClick = (row: any, index: any) => {
+    // handleRowClick(e, row);
+    onInfoClick(row, index);
+  };
+
   const handleChange = (e: any) => {
     e.preventDefault();
-    console.log("EEE", e);
     setRow({ ...selectedRow, [e.target.name]: e.target.value });
   };
   const handleChange2 = (e: any, name: string) => {
     e.preventDefault();
-    console.log("EEE", e);
     setRow({ ...selectedRow, [name]: e.target.innerHTML });
   };
 
   React.useEffect(() => {
-    console.log("DATA", data);
-
     setRow(data);
   }, [data, selectedRow]);
 
@@ -84,7 +89,7 @@ export default function TableRows({
       key={index}
       selected={selected}
     >
-      <TableCell>
+      <TableCell sx={{ minWidth: 120 }}>
         {" "}
         {isOnEditMode ? (
           <div
@@ -106,6 +111,9 @@ export default function TableRows({
             </IconButton>
             <IconButton onClick={handleRowDelete}>
               <DeleteIcon fontSize="small" />
+            </IconButton>
+            <IconButton onClick={() => handleInfoClick(row, index)}>
+              <InfoOutlinedIcon fontSize="small" />
             </IconButton>
           </>
         )}

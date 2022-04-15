@@ -1,9 +1,7 @@
 import React from "react";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import TableCell from "@material-ui/core/TableCell";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import TableSortLabel from "@material-ui/core/TableSortLabel";
+import { TableCell, TableHead, TableRow, TableSortLabel } from "@mui/material";
+
 import { HeadCell } from "../../../types";
 
 type Order = "asc" | "desc";

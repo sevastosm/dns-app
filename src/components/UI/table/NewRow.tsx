@@ -1,6 +1,6 @@
 import { useEffect, useCallback } from "react";
 import { TableRow, TableCell, IconButton } from "@material-ui/core";
-import { SaveRounded } from "@material-ui/icons";
+import { SaveRounded } from "@mui/icons-material";
 
 interface IProps {
   saveOrder: (values: any) => void;

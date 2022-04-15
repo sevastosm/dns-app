@@ -1,0 +1,31 @@
+export const companies = {
+  1: {
+    partnerID: "0",
+    cooperationID: "0",
+    parentID: "0",
+    companyID: "1",
+    userName: "userName",
+    passsword: "passsword",
+    argoPaySpotID: "argoPaySpotID",
+    recommendationSheet: "ΔΕΛΤΙΟ ΣΥΣΤΑΣΗΣ ΑΠΌ ΣΥΝΕΡΓΑΤΗ",
+    partnerToSignDate: "ΑΠΟΣΤΟΛΗ ΣΥΜΒΑΣΗΣ ΓΙΑ ΥΠΟΓΡΑΦΗ",
+    partnerSignedDate: "ΕΠΙΣΤΡΟΦΗ ΥΠΟΓΕΓΡΑΜΜΕΝΗΣ ΣΥΜΒΑΣΗΣ",
+    contractSigned: "ΑΠΟΣΤΟΛΗ ΥΠΟΓΕΓΡΑΜΜΕΝΗΣ ΣΥΜΒΑΣΗΣ ΑΠΌ ΣΥΝΕΡΓΑΤΗ-ΕΤΑΙΡΕΙΑ",
+
+    homeLowVoltageID: "  ΟΙΚΙΑΚΟ ΕΠΑΓΓΕΛΜΑΤΙΚΟ ΧΑΜΗΛΗ ΤΑΣΗ",
+    airTimeLowVoltage: "AIR TIME ΧΑΜΗΛΗΣ ΤΑΣΗΣ",
+    renewalElectricity: "ΑΝΑΝΕΩΣΗ",
+    midlVoltage: "ΜΕΣΗ ΤΑΣΗ",
+    airTimeMidlVoltage: "AIR TIME ΜΕΣΗΣ ΤΑΣΗΣ",
+    homeAutoProGas: "ΟΙΚΙΑΚΟ ΑΥΤΟΝΟΜΟ ΕΠΑΓΓΕΛΜΑΤΙΚΟ ΚΕΝΤΡΙΚΗ ΘΕΡΜΑΝΣΗ",
+    airTime1: "AIRTIME",
+    airTime2: "AIRTIME2",
+    renewalGas: "ΑΝΑΝΕΩΣΗ",
+    comments: "Comments",
+  },
+  2: {
+    payments_nova: "Payments",
+    userName: "userName",
+    passsword: "passsword",
+  },
+};

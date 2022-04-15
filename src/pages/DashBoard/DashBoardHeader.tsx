@@ -5,17 +5,19 @@ import useAuth from "../../hooks/UseAuth";
 // import { useHistory } from "react-router-dom";
 
 import { makeStyles, Theme } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Badge from "@material-ui/core/Badge";
-import MenuIcon from "@material-ui/icons/Menu";
-import NotificationsIcon from "@material-ui/icons/Notifications";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
-import List from "@material-ui/core/List";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import {
+  AppBar,
+  Badge,
+  IconButton,
+  Typography,
+  List,
+  Toolbar,
+} from "@mui/material";
+
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import MainListItems from "./ListItems";
 import Drawer from "@material-ui/core/Drawer";
 import Divider from "@material-ui/core/Divider";
@@ -116,9 +118,7 @@ const DashBoardHeader: React.FunctionComponent<IAppProps> = (props) => {
               classes.menuButton,
               open && classes.menuButtonHidden
             )}
-          >
-            <MenuIcon />
-          </IconButton>
+          ></IconButton>
           <Typography
             component="h1"
             variant="h6"
