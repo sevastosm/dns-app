@@ -16,7 +16,7 @@ import { companies } from "../../mocks/companies";
 
 import { constructCompanyProperties } from "./utils";
 
-import PartnerStatus from "./PartnersStatus";
+import Customers from "../customers/Customers";
 
 type Props = { data: any };
 
@@ -27,10 +27,18 @@ export default function PartnerDetails({ data }: Props) {
     setValue(newValue);
   };
 
+  const fields = Object.keys(companies[company]).map((k: keyof any, i) => {
+    return {
+      id: i,
+      name: companies[company][k],
+      value: "",
+    };
+  });
+
   const properties = constructCompanyProperties(
     company,
     companies,
-    data.cooperations
+    data.cooperations || []
   );
 
   function a11yProps(index: number) {
@@ -62,26 +70,28 @@ export default function PartnerDetails({ data }: Props) {
     // <Container maxWidth="lg">
     <Box
       component="form"
-      sx={{
-        "& .MuiTextField-root": { m: 1, minWidth: "150ch" },
-      }}
+      minWidth="75vw"
+      minHeight="70vh"
       noValidate
       autoComplete="off"
     >
-      <Box sx={{ maxWidth: 120 }}>
-        <FormControl fullWidth>
-          <InputLabel id="select-label">Εταιρεία</InputLabel>
-          <Select
-            labelId="select-label"
-            value={company}
-            label="Εταιρεία"
-            onChange={(e) => setCompany(e.target.value)}
-          >
-            <MenuItem value={1}>Zenith</MenuItem>
-            <MenuItem value={2}>Nova</MenuItem>
-          </Select>
-        </FormControl>
-      </Box>
+      <FormControl fullWidth>
+        <Box display="flex" alignItems="center" justifyContent="space-between">
+          <div>
+            <InputLabel id="select-label">Εταιρεία</InputLabel>
+            <Select
+              labelId="select-label"
+              value={company}
+              label="Εταιρεία"
+              onChange={(e) => setCompany(e.target.value)}
+            >
+              <MenuItem value={1}>Zenith</MenuItem>
+              <MenuItem value={2}>Nova</MenuItem>
+            </Select>
+          </div>
+          <h3>{data.name}</h3>
+        </Box>
+      </FormControl>
       <div>
         <Tabs
           value={value}
@@ -95,10 +105,12 @@ export default function PartnerDetails({ data }: Props) {
       </div>
       <div>
         <TabPanel value={value} index={0}>
-          <Form data={properties} />
+          <div className="options">
+            <Form data={properties} fields={fields} />
+          </div>
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <PartnerStatus />
+          <Customers data={data.customers} />
         </TabPanel>
         <TabPanel value={value} index={2}>
           <h2> Στο επόμεο version 😜 !!!</h2>

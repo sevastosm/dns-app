@@ -56,33 +56,6 @@ function stableSort<T>(array: T[], comparator: (a: T, b: T) => number) {
   return stabilizedThis.map((el) => el[0]);
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      width: "100%",
-    },
-    paper: {
-      width: "100%",
-      marginBottom: theme.spacing(2),
-    },
-    table: {
-      // minWidth: 750,
-      border: "none",
-    },
-    visuallyHidden: {
-      border: 0,
-      clip: "rect(0 0 0 0)",
-      height: 1,
-      margin: -1,
-      overflow: "hidden",
-      padding: 0,
-      position: "absolute",
-      top: 20,
-      width: 1,
-    },
-  })
-);
-
 type TableProps = {
   onRowclick?: (data: any) => void;
   rows: Data[];
@@ -115,7 +88,7 @@ export default function DataTable(props: TableProps) {
     rowsPerPagenum = 25,
     rowInfo = () => false,
   } = props;
-  const classes = useStyles();
+  // const classes = useStyles();
   const [order, setOrder] = React.useState<Order>("asc");
   const [orderBy, setOrderBy] = React.useState<keyof Data>(orderCol);
   const [page, setPage] = React.useState(0);
@@ -153,6 +126,8 @@ export default function DataTable(props: TableProps) {
     setRow([...tableRows, ed]);
     setSelectedRow(ed);
     setEditRow(true);
+    setEditModeIndex(tableRows.length);
+
     // setSelectedRow(emptyRow);
     // setEditRow(true);
     // setAddwRow(!addRow);
@@ -215,7 +190,7 @@ export default function DataTable(props: TableProps) {
   // const emptyRows =
   //   rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
   return (
-    <div className={classes.root}>
+    <div>
       <form>
         <span style={{ overflow: "auto", display: "block" }}>
           {/* {JSON.stringify(selectedRow)} */}
@@ -230,7 +205,7 @@ export default function DataTable(props: TableProps) {
         <TableContainer>
           <Table
             stickyHeader={stickyHeader}
-            className={classes.table}
+            // className={classes.table}
             aria-labelledby="tableTitle"
             size={"small"}
             aria-label="enhanced table"
